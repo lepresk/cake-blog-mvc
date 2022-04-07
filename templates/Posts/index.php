@@ -33,8 +33,11 @@ $this->assign('title', 'Liste des articles');
         <td><?= $post->created ?></td>
         <td><?= $post->modified ?></td>
         <td>
+          
           <a href="<?= $this->Url->build(['_name' => 'posts:edit', 'id' => $post->id]) ?>" class="btn btn-sm btn-primary">Editer</a>
-          <a href="#" class="btn btn-sm btn-danger">Supprimer</a>
+
+          <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $post->id], ['confirm' => __('Are you sure you want to delete # {0}?', $post->id), "class" => "btn btn-danger btn-sm"]) ?>
+        
         </td>
       </tr>
     <?php endforeach ?>

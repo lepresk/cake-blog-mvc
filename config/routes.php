@@ -56,6 +56,11 @@ return static function (RouteBuilder $routes) {
                 ->connect('/edit/{id}', ['action' => 'edit'], ['_name' => 'posts:edit'])
                 ->setPass(['id'])
                 ->setPatterns(['id' => '\d+']);
+
+            $builder
+                ->connect('/delete/{id}', ['action' => 'delete'], ['_name' => 'posts:delete'])
+                ->setPass(['id'])
+                ->setPatterns(['id' => '\d+']);
         });
 
         $builder->scope('/categories', ['controller' => 'Categories'], function (RouteBuilder $builder) {
@@ -65,6 +70,10 @@ return static function (RouteBuilder $routes) {
 
 
             $builder->connect('/edit/{id}', ['action' => 'edit'], ['_name' => 'categories:edit'])
+                ->setPass(['id'])
+                ->setPatterns(['id' => '\d+']);
+
+            $builder->connect('/delte/{id}', ['action' => 'delete'], ['_name' => 'categories:delete'])
                 ->setPass(['id'])
                 ->setPatterns(['id' => '\d+']);
         });

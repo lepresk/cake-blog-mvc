@@ -29,7 +29,8 @@ $this->setLayout('blog');
         <td><?= $category->description ?></td>
         <td>
           <a href="<?= $this->Url->build(['_name' => 'categories:edit', 'id' => $category->id]) ?>" class="btn btn-sm btn-primary">Editer</a>
-          <a href="#" class="btn btn-sm btn-danger">Supprimer</a>
+
+          <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $category->id], ['confirm' => __('Are you sure you want to delete # {0}?', $category->id), "class" => "btn btn-danger btn-sm"]) ?>
         </td>
       </tr>
     <?php endforeach ?>
