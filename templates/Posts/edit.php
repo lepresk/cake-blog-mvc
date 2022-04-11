@@ -8,9 +8,13 @@ $this->assign('title', 'Editer un article');
 $this->setLayout('blog');
 ?>
 
-<?= $this->Form->create($post) ?>
+<?= $this->Form->create($post, ['type' => 'file']) ?>
   <div class="mb-3">
     <?= $this->Form->control('name', ['label' => ['text' => 'Nom', 'class' => 'control-label'], 'class' => 'form-control']) ?>
+  </div>
+
+  <div class="mb-3">
+    <?= $this->Form->control('change_file', ['label' => ['text' => 'Image', 'class' => 'control-label'], 'type' => 'file', 'class' => 'form-control']) ?>
   </div>
 
   <div class="mb-3">

@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Psr\Http\Message\UploadedFileInterface;
+
 /**
  * Posts Controller
  *
@@ -50,8 +52,28 @@ class PostsController extends AppController
     public function add()
     {
         $post = $this->Posts->newEmptyEntity();
+
         if ($this->request->is('post')) {
             $post = $this->Posts->patchEntity($post, $this->request->getData());
+
+            // Récupération de l'image
+            /** @var \Laminas\Diactoros\UploadedFile $image */
+            $image = $this->request->getData('image_file');
+
+            if($image->getError() === UPLOAD_ERR_OK) { 
+
+                $imageName = $image->getClientFileName();
+
+                // Dossier de destination
+                $targetFolder = WWW_ROOT . 'img' . DS . $imageName;
+
+                $image->moveTo($targetFolder);
+
+                $post->image = $imageName;
+                
+                $post->setDirty('image_file');
+            }
+
             if ($this->Posts->save($post)) {
                 $this->Flash->success(__('The post has been saved.'));
 
@@ -79,6 +101,25 @@ class PostsController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $post = $this->Posts->patchEntity($post, $this->request->getData());
+
+            // Récupération de l'image
+            /** @var \Laminas\Diactoros\UploadedFile $image */
+            $image = $this->request->getData('change_file');
+
+            if($image->getError() === UPLOAD_ERR_OK) { 
+
+                $imageName = $image->getClientFileName();
+
+                // Dossier de destination
+                $targetFolder = WWW_ROOT . 'img' . DS . $imageName;
+
+                $image->moveTo($targetFolder);
+
+                $post->image = $imageName;
+                
+                $post->setDirty('change_file');
+            }
+
             if ($this->Posts->save($post)) {
                 $this->Flash->success(__('The post has been saved.'));
 
