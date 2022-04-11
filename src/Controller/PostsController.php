@@ -3,12 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use Cake\Http\Client\Request;
-use Composer\Pcre\Regex;
 use Psr\Http\Message\UploadedFileInterface;
-use Recombee\RecommApi\Client;
-use Recombee\RecommApi\Requests as Reqs;
-use Recombee\RecommApi\Exceptions as Ex;
 
 /**
  * Posts Controller
@@ -25,9 +20,10 @@ class PostsController extends AppController
      */
     public function index()
     {
-        $client = new Client('cowema-entreprise-dev', 'a5Z4hHEUwffGcFSlsnZucuSTe0Se7J0cTNja8lvZzHrW2Kcf7p2sPhZD94khNBjX');
-
-        //dd($client);
+        $posts = $this->Posts
+            ->find()
+            ->contain(['Categories'])
+            ->all();
 
         $this->set('posts', $posts);
     }
