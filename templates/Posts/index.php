@@ -29,7 +29,7 @@ $this->assign('title', 'Liste des articles');
     <?php foreach ($posts as $post) : ?>
       <tr>
         <td><?= $post->name ?></td>
-        <td><?= $this->Html->image($post->image) ?></td>
+        <td><?= $this->Html->image($post->image, ['class' => "img-fluid w-50", "alt" => "alt de test"]) ?></td>
         <td><?= $post->category->name ?></td>
         <td><?= $this->Text->truncate($post->content, 50) ?></td>
         <td><?= $post->created ?></td>
